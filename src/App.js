@@ -43,12 +43,12 @@ function App() {
       <div className="card">
         <div className="step">
           <button onClick={handleStepsDec}>-</button>
-          <h1>Steps:{steps}</h1>
+          <h1>Steps: {steps}</h1>
           <button onClick={handleStepsInc}>+</button>
         </div>
         <div className="counter">
           <button onClick={handleDateDec}>-</button>
-          <h1>Count:{dateCounter}</h1>
+          <h1>Count: {dateCounter}</h1>
           <button onClick={handleDateInc}>+</button>
         </div>
         <div className="date">
