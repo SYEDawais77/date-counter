@@ -1,24 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import "./index.css";
 function App() {
+  const [steps, setSteps] = useState(1);
+  const [dateCounter, setDateCounter] = useState(0);
+
+  const date = new Date();
+
+  function NewDateFromCount() {
+    if (dateCounter === 0) {
+      return "Today is " + date.toDateString();
+    } else if (dateCounter > 0 && dateCounter === 1) {
+      date.setDate(date.getDate() + dateCounter);
+      return dateCounter + " day from today is " + date.toDateString();
+    } else if (dateCounter > 1) {
+      date.setDate(date.getDate() + dateCounter);
+      return dateCounter + " days from today is " + date.toDateString();
+    } else if (dateCounter < 0 && dateCounter === -1) {
+      date.setDate(date.getDate() + dateCounter);
+      return dateCounter + " day from today was " + date.toDateString();
+    } else {
+      date.setDate(date.getDate() + dateCounter);
+      return dateCounter + " days from today was " + date.toDateString();
+    }
+  }
+
+  const handleStepsInc = () => {
+    setSteps(steps + 1);
+  };
+  const handleStepsDec = () => {
+    if (steps > 1) {
+      setSteps(steps - 1);
+    }
+  };
+  const handleDateInc = () => {
+    setDateCounter(dateCounter + steps);
+  };
+  const handleDateDec = () => {
+    setDateCounter(dateCounter - steps);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <>
+      <div className="card">
+        <div className="step">
+          <button onClick={handleStepsDec}>-</button>
+          <h1>Steps:{steps}</h1>
+          <button onClick={handleStepsInc}>+</button>
+        </div>
+        <div className="counter">
+          <button onClick={handleDateDec}>-</button>
+          <h1>Count:{dateCounter}</h1>
+          <button onClick={handleDateInc}>+</button>
+        </div>
+        <div className="date">
+          <h1>{NewDateFromCount()}</h1>
+        </div>
+      </div>
+
+      <footer className="footer">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Copyright &copy; {date.getFullYear()} Design and Developed by
+          <a href="mailto:shah.syedawais77@yahoo.com">SYED AWAIS SHAH</a>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      </footer>
+    </>
   );
 }
 
