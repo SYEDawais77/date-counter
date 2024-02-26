@@ -18,10 +18,10 @@ function App() {
       return dateCounter + " days from today is " + date.toDateString();
     } else if (dateCounter < 0 && dateCounter === -1) {
       date.setDate(date.getDate() + dateCounter);
-      return dateCounter + " day from today was " + date.toDateString();
+      return Math.abs(dateCounter) + " day from today was " + date.toDateString();
     } else {
       date.setDate(date.getDate() + dateCounter);
-      return dateCounter + " days from today was " + date.toDateString();
+      return Math.abs(dateCounter) + " days from today was " + date.toDateString();
     }
   }
 
