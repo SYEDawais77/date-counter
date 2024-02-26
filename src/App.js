@@ -4,6 +4,7 @@ function App() {
   const [steps, setSteps] = useState(1);
   const [dateCounter, setDateCounter] = useState(0);
 
+  const dateForFooter = new Date();
   const date = new Date();
 
   function NewDateFromCount() {
@@ -58,7 +59,7 @@ function App() {
 
       <footer className="footer">
         <p>
-          Copyright &copy; {date.getFullYear()} Design and Developed by
+          Copyright &copy; {dateForFooter.getFullYear()} Design and Developed by
           <a href="mailto:shah.syedawais77@yahoo.com">SYED AWAIS SHAH</a>
         </p>
       </footer>
