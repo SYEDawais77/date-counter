@@ -41,10 +41,10 @@
   cursor: pointer;
 }
 .counter input{
-  font-size: clamp(1.8rem, 5vw, 1.8rem);
-  width: clamp(2rem, 15vw, 50%);;
+  width: 15vw;
   margin: 0.8rem;
   padding-left: 0.8rem;
+  padding-right: 0.8rem;
 }
 
 .dateCounter{
