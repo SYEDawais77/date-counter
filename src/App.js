@@ -69,7 +69,7 @@ function App() {
           <h1>{NewDateFromCount()}</h1>
         </div>
         <div style={steps  > 1 || dateCounter > 0 ? {display:"block"} : {display: "none"}}>
-        <button className="resetButton" onClick={ResetDate}>Reset Date</button>
+        <button className="resetButton" onClick={ResetDate}>Reset</button>
         </div>
       </div>
 
