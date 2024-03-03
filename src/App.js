@@ -18,42 +18,58 @@ function App() {
       return dateCounter + " days from today is " + date.toDateString();
     } else if (dateCounter < 0 && dateCounter === -1) {
       date.setDate(date.getDate() + dateCounter);
-      return Math.abs(dateCounter) + " day from today was " + date.toDateString();
+      return (
+        Math.abs(dateCounter) + " day from today was " + date.toDateString()
+      );
     } else {
       date.setDate(date.getDate() + dateCounter);
-      return Math.abs(dateCounter) + " days from today was " + date.toDateString();
+      return (
+        Math.abs(dateCounter) + " days from today was " + date.toDateString()
+      );
     }
   }
 
-  const handleStepsInc = () => {
-    setSteps(steps + 1);
+  const handleSliderChange = (e) => {
+    setSteps(Number(e.target.value));
   };
-  const handleStepsDec = () => {
-    if (steps > 1) {
-      setSteps(steps - 1);
-    }
+
+  const handleInputChange = (e) => {
+    setDateCounter(Number(e.target.value));
   };
+
   const handleDateInc = () => {
     setDateCounter(dateCounter + steps);
   };
   const handleDateDec = () => {
     setDateCounter(dateCounter - steps);
   };
+  const ResetDate = () => {
+    setDateCounter(0);
+    setSteps(1);
+  };
   return (
     <>
       <div className="card">
         <div className="step">
-          <button onClick={handleStepsDec}>-</button>
-          <h1>Steps: {steps}</h1>
-          <button onClick={handleStepsInc}>+</button>
+          <input
+            type="range"
+            min={1}
+            max={10}
+            onChange={handleSliderChange}
+            value={Number(steps)}
+          />
+          <h1>{steps}</h1>
         </div>
         <div className="counter">
           <button onClick={handleDateDec}>-</button>
-          <h1>Count: {dateCounter}</h1>
+          <input className="dateCounter" type="number" name="numberOfDays" value={dateCounter} onChange={handleInputChange} />
           <button onClick={handleDateInc}>+</button>
         </div>
         <div className="date">
           <h1>{NewDateFromCount()}</h1>
+        </div>
+        <div style={steps  > 1 || dateCounter > 0 ? {display:"block"} : {display: "none"}}>
+        <button className="resetButton" onClick={ResetDate}>Reset Date</button>
         </div>
       </div>
 
