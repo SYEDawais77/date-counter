@@ -1,8 +1,28 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import "./index.css";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "inc":
+      return { ...state, dateCounter: action.payload };
+    case "dec":
+      return { ...state, dateCounter: action.payload };
+    case "setSteps":
+      return { ...state, steps: action.payload };
+    case "setCount":
+      return { ...state, dateCounter: action.payload };
+    case "reset":
+      return { steps: 1, dateCounter: 0 };
+    default:
+      return "Unknown type";
+  }
+}
 function App() {
-  const [steps, setSteps] = useState(1);
-  const [dateCounter, setDateCounter] = useState(0);
+  const initialState = { dateCounter: 0, steps: 1 };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const { dateCounter, steps } = state;
 
   const dateForFooter = new Date();
   const date = new Date();
@@ -30,22 +50,21 @@ function App() {
   }
 
   const handleSliderChange = (e) => {
-    setSteps(Number(e.target.value));
+    dispatch({ type: "setSteps", payload: Number(e.target.value) });
   };
 
   const handleInputChange = (e) => {
-    setDateCounter(Number(e.target.value));
+    dispatch({ type: "setCount", payload: Number(e.target.value) });
   };
 
   const handleDateInc = () => {
-    setDateCounter(dateCounter + steps);
+    dispatch({ type: "inc", payload: dateCounter + steps });
   };
   const handleDateDec = () => {
-    setDateCounter(dateCounter - steps);
+    dispatch({ type: "dec", payload: dateCounter - steps });
   };
   const ResetDate = () => {
-    setDateCounter(0);
-    setSteps(1);
+    dispatch({ type: "reset" });
   };
   return (
     <>
@@ -62,14 +81,28 @@ function App() {
         </div>
         <div className="counter">
           <button onClick={handleDateDec}>-</button>
-          <input className="dateCounter" type="number" name="numberOfDays" value={dateCounter} onChange={handleInputChange} />
+          <input
+            className="dateCounter"
+            type="number"
+            name="numberOfDays"
+            value={dateCounter}
+            onChange={handleInputChange}
+          />
           <button onClick={handleDateInc}>+</button>
         </div>
         <div className="date">
           <h1>{NewDateFromCount()}</h1>
         </div>
-        <div style={steps  > 1 || dateCounter > 0 ? {display:"block"} : {display: "none"}}>
-        <button className="resetButton" onClick={ResetDate}>Reset</button>
+        <div
+          style={
+            steps > 1 || dateCounter > 0 || dateCounter < 0
+              ? { display: "block" }
+              : { display: "none" }
+          }
+        >
+          <button className="resetButton" onClick={ResetDate}>
+            Reset
+          </button>
         </div>
       </div>
 
